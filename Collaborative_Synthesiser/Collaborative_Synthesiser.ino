@@ -8,11 +8,13 @@
 #define MIDI_CHAN_PROGRAM 0xC0
 #define VS1053_MIDI Serial1
 
-int sensorValueA = 0;
-int sensorValueB = 0;
+int lightSensorVal = 0;
+int potentiometerVal = 0;
 const int numBeats = 16;
 uint8_t beats[numBeats];
 uint8_t curBeat = 0;
+
+uint8_t numNotes = 15;
 
 void setup()
 {
@@ -23,9 +25,11 @@ void setup()
   midiSetChannelVolume(0, 127);
   Serial.println("Started");
   setupBeats();
+  setupNotes();
 }
 
 void loop()
 {
+readSensors();
 playStep();
 }
