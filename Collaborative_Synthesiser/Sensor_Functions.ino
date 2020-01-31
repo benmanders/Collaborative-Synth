@@ -4,7 +4,7 @@
   lightSensorVal = analogRead(A1);
   potentiometerVal = analogRead(A2);
   // Serial.println(sensorValue);
-  uint8_t  i = map(lightSensorVal, 0, 1023, 0, 100);
+  uint8_t  n = map(lightSensorVal, 0, 1023, 0, 15);
   Serial.print("light sensor ");
   Serial.println(i);
   Serial.println(" ... ");

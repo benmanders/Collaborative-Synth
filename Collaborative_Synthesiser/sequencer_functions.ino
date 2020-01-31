@@ -32,4 +32,14 @@ void setupNotes()
   {
     int Cmaj[] {48, 50, 52, 55, 57, 60, 62, 64, 67, 67, 69, 72, 74, 76, 79, 81}; // 3 Octaves of Cmaj Pentatonic
   }
+
+  if (n = 1)
+  {
+    Cmaj = 48
+  }
+  if (n = 2)
+  {
+    Cmaj = 50
+  }
+
 }
