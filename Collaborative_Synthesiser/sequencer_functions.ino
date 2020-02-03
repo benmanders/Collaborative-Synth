@@ -4,7 +4,7 @@ void playStep()
   {
     midiNoteOn(0, beats[curBeat], 127);
   }
-  delay(150);
+  delay(100);
   midiNoteOff(0, beats[curBeat], 127);
   curBeat++;
   curBeat %= numBeats;
@@ -12,34 +12,40 @@ void playStep()
 
 void setupBeats()
 {
-  for (int i = 0; i < numBeats; i++)
-  {
-    beats[i] = 0;
-  }
-  beats[0] = 32;
-  beats[4] = 32;
-  beats[7] = 32;
-  beats[8] = 40;
-  beats[10] = 32;
-  beats[12] = 40;
-  beats[13] = 32;
-  beats[15] = 50;
-}
-
-void setupNotes()
-{
   for (int n = 0; n < numNotes; n++)
   {
-    int Cmaj[] {48, 50, 52, 55, 57, 60, 62, 64, 67, 67, 69, 72, 74, 76, 79, 81}; // 3 Octaves of Cmaj Pentatonic
+    int pentatonicMidi[16] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84};
+    int noteIndex = map(analogRead(A1), 0, 1023, 0, 15);
+    Serial.println(noteIndex);
+    pentatonicMidi[noteIndex];
   }
 
-  if (n = 1)
   {
-    Cmaj = 48
+    for (int i = 0; i < numBeats; i++)
+    {
+      beats[i] = 0;
+    }
+    beats[0] = pentatonicMidi[noteIndex];
+    beats[4] = pentatonicMidi[noteIndex];
+    beats[10] = pentatonicMidi[noteIndex];
+    beats[14] = pentatonicMidi[noteIndex];
+    beats[20] = pentatonicMidi[noteIndex];
+    beats[25] = pentatonicMidi[noteIndex];
+    beats[28] = pentatonicMidi[noteIndex];
+    //beats[30] = 52;
   }
-  if (n = 2)
-  {
-    Cmaj = 50
-  }
-
 }
+
+//void playNotes()
+//{
+//  for (int n = 0; n < numNotes; n++)
+//  {
+//    int pentatonicMidi[16] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84};
+//    int noteIndex = map(analogRead(A1), 0, 1023, 0, 15);
+//    Serial.println(noteIndex);
+//    pentatonicMidi[noteIndex];
+//    midiNoteOn(0, pentatonicMidi[noteIndex], 127);
+//    delay(200);
+//    midiNoteOff(0, pentatonicMidi[noteIndex], 127);
+//  }
+//}
