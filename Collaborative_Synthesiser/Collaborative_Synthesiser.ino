@@ -18,9 +18,8 @@ uint8_t curBeat = 0;
 const uint8_t numNotes = 16;
 bool noteMatrix[numBeats][numNotes];
 bool finalPattern[numBeats][numNotes];
+bool finalPatternBeats[3] = {1, 4, 7};
 bool finalPatternNotes[3] = {3, 7, 4};
-bool finalPatternBeats[3] = {1, 4, 1};
-
 int pentatonicMidi[numNotes] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84}; // cmaj pentatonic - 3 octactaves
 
 void setup()
@@ -36,20 +35,21 @@ void setup()
   int ldrVal = analogRead(A1);
   int potentiometerVal = analogRead(A2);
   setupBeats();
-  // playNotes();
-  //  randomiseNoteMatrix();
-  //  setAscendingScale();
+  //playNotes();
+  randomiseNoteMatrix();
+  //setAscendingScale();
   //setInterleaveScale();
-  setMatrixDensity(1);
+  setMatrixDensity(19);
   printMatrix();
 
 }
 
 void loop()
 {
-  //  playChord();
+  //playChord();
   //readSensors();
-  //  playNotes();
+  //playNotes();
   //setupBeats();
+  setMatrixFromSensor();
   playStep();
 }

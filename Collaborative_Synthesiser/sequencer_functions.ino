@@ -132,7 +132,8 @@ void printMatrix()
 
 void setMatrixFromSensor()
 {
-  int reading = map(0, 0 , 1023, 0, 3);
+  int reading = map(analogRead(A1), 0 , 1023, 0, 3);
+  // Serial.println(reading);
   for (int i = 0; i < reading ; i++)
   {
     noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = true;
@@ -141,26 +142,32 @@ void setMatrixFromSensor()
   for (int i = reading; i < 3 ; i++)
   {
     noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = false;
+    //Serial.println(i);
+  
   }
-
-//  for (int b = 0; b < numBeats; b++)
-//  {
-//    for (int n = 0; n < numNotes; n++)
-//    {
-//
-//    }
-//  }
-
-
+  
+  //  for (int b = 0; b < numBeats; b++)
+  //  {
+  //    for (int n = 0; n < numNotes; n++)
+  //    {
+  //
+  //    }
+  //  }
+  
 }
 
 void setMatrixDensity(int a)
 {
-    for (int b = 0; b < numBeats; b++)
+  for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
     {
       noteMatrix[b][n] = !(random(20) < a);
     }
   }
+}
+
+void playMatrixFromSensor() // Do I need to have a seperate function to get the added notes from the LDR reading to be played?? 
+{
+  
 }
