@@ -14,13 +14,16 @@ void setup()
 {
   Serial.begin(9600);
   while (!Serial) {}
+  
   connectToWifi(ssid, pass);
+
 }
 
 void loop()
 {
   makeGetRequest(host, onUrl, client, 80);
   parseContent();
+  delay(1000);
   makeGetRequest(host, offUrl, client, 80);
   parseContent();
   delay(1000);
