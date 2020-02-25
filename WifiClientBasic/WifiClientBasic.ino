@@ -1,26 +1,27 @@
 #include <SPI.h>
 #include <WiFi101.h>
-#include "arduino_secrets.h" 
+#include "arduino_secrets.h"
 //---------------------------------------------------------------------------------------------------------------------------------------
-char ssid[] = SECRET_SSID;    // your network SSID (name)
+char ssid[] = SECRET_SSID;        // your network SSID (name)
 char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
-int keyIndex = 0;             // your network key Index number (needed only for WEP)
 //---------------------------------------------------------------------------------------------------------------------------------------
-int led =  LED_BUILTIN;
-int status = WL_IDLE_STATUS;
-WiFiServer server(80);
+String host = "192.168.1.1";    // name address for Google (using DNS)
+String onUrl  = "/H";
+String offUrl = "/L";
+WiFiClient client;
 //---------------------------------------------------------------------------------------------------------------------------------------
-void setup() 
+void setup()
 {
   Serial.begin(9600);
-  while (!Serial) {}  
-  pinMode(led, OUTPUT);      
-  setupAccessPoint(ssid, pass);
+  while (!Serial) {}
+  connectToWifi(ssid, pass);
 }
 
-
-void loop() 
+void loop()
 {
-  updateConnectionStatus();
-  listenForClient();
+  makeGetRequest(host, onUrl, client, 80);
+  parseContent();
+  makeGetRequest(host, offUrl, client, 80);
+  parseContent();
+  delay(1000);
 }
