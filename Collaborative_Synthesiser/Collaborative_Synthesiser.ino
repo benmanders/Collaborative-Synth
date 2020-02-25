@@ -18,10 +18,19 @@ uint8_t curBeat = 0;
 const uint8_t numNotes = 16;
 bool noteMatrix[numBeats][numNotes];
 bool finalPattern[numBeats][numNotes];
-bool finalPatternBeats[3] = {1, 4, 7};
-bool finalPatternNotes[3] = {3, 7, 4};
-int pentatonicMidi[numNotes] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84}; // cmaj pentatonic - 3 octactaves
+const int sequenceLength = 17;
 
+//------------------------------------------------------Device 1---------------------------------------------------------------
+int finalPatternBeats[sequenceLength] = {1, 4, 7, 5, 2, 6, 4, 11, 13, 15, 1, 7, 5, 2, 14, 1, 15};
+int finalPatternNotes[sequenceLength] = {3, 7, 4, 11, 10, 5, 9, 1, 2, 3, 5, 2, 9, 7, 13, 7, 15};
+int pentatonicMidi[numNotes] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84}; // cmaj pentatonic - 3 octaves (high)
+//-----------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------Device 2---------------------------------------------------------------
+//int finalPatternBeats[sequenceLength] = {5, 10, 3, 1, 4, 13, 14, 15, 7, 7, 6, 11, 2, 2, 3, 5, 10};
+//int finalPatternNotes[sequenceLength] = {3, 7, 4, 11, 10, 5, 9, 1, 2, 3, 5, 2, 9, 7, 13, 7, 15};
+//int pentatonicMidi[numNotes] {12, 14, 16, 19, 21, 24, 26, 28, 31, 33, 36, 38, 40, 43, 45, 48}; // cmaj pentatonic - 3 octaves (low)
+//-----------------------------------------------------------------------------------------------------------------------------
 void setup()
 {
   Serial.begin(115200);
@@ -39,8 +48,9 @@ void setup()
   randomiseNoteMatrix();
   //setAscendingScale();
   //setInterleaveScale();
-  setMatrixDensity(19);
+  setMatrixDensity(18);
   printMatrix();
+  notesOff();
 
 }
 

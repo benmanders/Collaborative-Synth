@@ -1,5 +1,6 @@
-void playStep()
-{
+/*
+  void playStep()
+  {
 
   for (int note = 0; note < numNotes; note++)
   {
@@ -19,10 +20,10 @@ void playStep()
   }
   curBeat++;
   curBeat %= numBeats;
-}
+  }
 
-void setupBeats()
-{
+  void setupBeats()
+  {
   int noteIndex = map(analogRead(A1), 0, 1023, 0, 15);
   Serial.println(noteIndex);
   {
@@ -41,10 +42,10 @@ void setupBeats()
 
 
   }
-}
+  }
 
-void playChord()
-{
+  void playChord()
+  {
   for (int n = 0; n < numNotes; n += 2)
   {
     midiNoteOn(0, pentatonicMidi[n], 127);
@@ -54,10 +55,10 @@ void playChord()
   {
     midiNoteOff(0, pentatonicMidi[n], 127);
   }
-}
+  }
 
-void playNotes()
-{
+  void playNotes()
+  {
 
   for (int n = 0; n < numNotes; n++)
   {
@@ -68,10 +69,10 @@ void playNotes()
     delay(200);
     midiNoteOff(0, pentatonicMidi[noteIndex], 127);
   }
-}
+  }
 
-void randomiseNoteMatrix()
-{
+  void randomiseNoteMatrix()
+  {
   for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
@@ -80,11 +81,11 @@ void randomiseNoteMatrix()
     }
   }
 
-}
+  }
 
 
-void setAscendingScale()
-{
+  void setAscendingScale()
+  {
   for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
@@ -92,11 +93,11 @@ void setAscendingScale()
       noteMatrix[b][n] = (b == n) ;
     }
   }
-}
+  }
 
 
-void setInterleaveScale()
-{
+  void setInterleaveScale()
+  {
   for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
@@ -115,10 +116,10 @@ void setInterleaveScale()
       }
     }
   }
-}
+  }
 
-void printMatrix()
-{
+  void printMatrix()
+  {
   for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
@@ -128,10 +129,10 @@ void printMatrix()
     }
     Serial.println();
   }
-}
+  }
 
-void setMatrixFromSensor()
-{
+  void setMatrixFromSensor()
+  {
   int reading = map(analogRead(A1), 0 , 1023, 0, sequenceLength);
   reading = constrain(reading, 0, sequenceLength - 1);
   Serial.println(reading);
@@ -147,10 +148,10 @@ void setMatrixFromSensor()
 
   }
 
-}
+  }
 
-void setMatrixDensity(int a)
-{
+  void setMatrixDensity(int a)
+  {
   for (int b = 0; b < numBeats; b++)
   {
     for (int n = 0; n < numNotes; n++)
@@ -158,8 +159,8 @@ void setMatrixDensity(int a)
       noteMatrix[b][n] = !(random(20) < a);
     }
   }
-}
-
+  }
+*/
 void notesOff()
 {
 
@@ -170,5 +171,26 @@ void notesOff()
       noteMatrix[b][n] = false;
     }
   }
+}
 
+void playNotesFrom9dof()
+{
+  lsm.read();
+  sensors_event_t a, m, g, temp;
+  lsm.getEvent(&a, &m, &g, &temp);
+  //  Serial.print("X Axis ");
+  //  Serial.println(m.magnetic.x - .150); // Serial.print(" gauss");
+
+  //int  m.magnetic.x*100 = a;
+
+  //  Serial.println(a);
+
+  int noteIndex = map(m.magnetic.x * 100, 0, 100, 0, 15);
+  //  Serial.print("Note ");
+  Serial.println(noteIndex);
+  //  Serial.println();
+  pentatonicMidi[noteIndex];
+  midiNoteOn(0, pentatonicMidi[noteIndex], 127);
+  delay(200);
+  midiNoteOff(0, pentatonicMidi[noteIndex], 127);
 }
