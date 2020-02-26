@@ -14,7 +14,7 @@ WiFiServer server(80);
 void setup()
 {
   Serial.begin(9600);
-  while (!Serial){}  
+//  while (!Serial){}  
   pinMode(led, OUTPUT);
   setupWifi();
   setupAccessPoint(ssid, pass);

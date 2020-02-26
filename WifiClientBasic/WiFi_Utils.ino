@@ -7,7 +7,6 @@ void setupWifiCard()
 
 void connectToWifi(const char ssidName[], const char pass[])
 {
-  setupWifiCard();
   Serial.println("Starting...");
   Serial.println("Connecting to WiFi.");
 
@@ -61,9 +60,8 @@ void printWiFiStatus() {
 
 }
 
-void listNetworks() 
+void listNetworks()
 {
-  setupWifiCard();
   // scan for nearby networks:
   Serial.println("** Scan Networks **");
   int numSsid = WiFi.scanNetworks();
@@ -78,7 +76,8 @@ void listNetworks()
   Serial.println(numSsid);
 
   // print the network number and name for each network found:
-  for (int thisNet = 0; thisNet < numSsid; thisNet++) {
+  for (int thisNet = 0; thisNet < numSsid; thisNet++)
+  {
     Serial.print(thisNet + 1);
     Serial.print(") ");
     Serial.print("Signal: ");
@@ -97,6 +96,26 @@ void listNetworks()
   }
   Serial.println();
 }
+
+bool isNetworkPresent(String targetSsid)
+{
+  int numSsid = WiFi.scanNetworks();
+  if (numSsid == -1)
+  {
+    Serial.println("Couldn't get a WiFi connection");
+    haltFirmware();
+  }
+
+  for (int thisNet = 0; thisNet < numSsid; thisNet++)
+  {    
+    if(targetSsid.equals(WiFi.SSID(thisNet)))
+    {
+      return true;    
+    }
+  }
+  return false;  
+}
+
 void printEncryptionType(int thisType) {
   // read the encryption type and print out the name:
   switch (thisType) {
