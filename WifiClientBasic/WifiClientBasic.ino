@@ -14,7 +14,9 @@ void setup()
 {
   Serial.begin(9600);
   while (!Serial) {}
-  
+
+
+  // wait until network exists, then connect
   connectToWifi(ssid, pass);
 
 }
