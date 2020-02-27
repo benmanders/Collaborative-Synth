@@ -1,6 +1,6 @@
-/*
-  void playStep()
-  {
+
+void playStep()
+{
 
   for (int note = 0; note < numNotes; note++)
   {
@@ -20,8 +20,9 @@
   }
   curBeat++;
   curBeat %= numBeats;
-  }
+}
 
+/*
   void setupBeats()
   {
   int noteIndex = map(analogRead(A1), 0, 1023, 0, 15);
@@ -131,6 +132,7 @@
   }
   }
 
+
   void setMatrixFromSensor()
   {
   int reading = map(analogRead(A1), 0 , 1023, 0, sequenceLength);
@@ -160,6 +162,7 @@
     }
   }
   }
+
 */
 void notesOff()
 {
@@ -178,19 +181,32 @@ void playNotesFrom9dof()
   lsm.read();
   sensors_event_t a, m, g, temp;
   lsm.getEvent(&a, &m, &g, &temp);
-  //  Serial.print("X Axis ");
-  //  Serial.println(m.magnetic.x - .150); // Serial.print(" gauss");
-
-  //int  m.magnetic.x*100 = a;
-
-  //  Serial.println(a);
-
-  int noteIndex = map(m.magnetic.x * 100, 0, 100, 0, 15);
-  //  Serial.print("Note ");
+  float  gyroX = constrain(m.magnetic.x, 0, 1);
+  int noteIndex = gyroX * 15;
   Serial.println(noteIndex);
-  //  Serial.println();
   pentatonicMidi[noteIndex];
   midiNoteOn(0, pentatonicMidi[noteIndex], 127);
   delay(200);
   midiNoteOff(0, pentatonicMidi[noteIndex], 127);
+}
+
+void setMatrixFrom9dof()
+{
+  lsm.read();
+  sensors_event_t a, m, g, temp;
+  lsm.getEvent(&a, &m, &g, &temp);
+  float  gyroX = constrain(m.magnetic.x, 0, 1);
+  int reading = gyroX * sequenceLength;
+  Serial.println(reading);
+
+    for (int i = 0; i < reading ; i++)
+    {
+      noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = true;
+    }
+  
+    for (int i = reading; i < sequenceLength ; i++)
+    {
+      noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = false;
+      //Serial.println(i);
+  }
 }

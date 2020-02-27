@@ -134,5 +134,6 @@ void loop()
   //setupBeats();
   //setMatrixFromSensor();
   playNotesFrom9dof();
+  //setMatrixFrom9dof();
   //playStep();
 }
