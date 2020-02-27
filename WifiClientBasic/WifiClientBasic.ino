@@ -24,10 +24,25 @@ void setup()
 
 void loop()
 {
-    makeGetRequest(host, onUrl, client, 80);
-    parseContent();
-    delay(1000);
-    makeGetRequest(host, offUrl, client, 80);
-    parseContent();
-    delay(1000);
+//  int ldrVal = analogRead(A1);
+//  int ldrMapped = map(ldrVal, 0, 1023, 0, 15);
+//  Serial.println(ldrMapped);
+//
+//  if (ldrMapped < 8)
+//  {
+//    makeGetRequest(host, onUrl, client, 80);
+//    parseContent();
+//    delay(1000);
+//  }
+//  
+//  else
+//  {
+//    makeGetRequest(host, offUrl, client, 80);
+//    parseContent();
+//    delay(1000);
+//  }
+ 
+  //readSensor();
+  sendSensorVal();
+  delay(500);
 }
