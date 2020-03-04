@@ -142,6 +142,16 @@ void listenForClient()
           Serial.print("LDR Val: ");
           int ldrVal = currentLine.substring(5, 5 + endNum).toInt();
           Serial.println(ldrVal);
+          
+          for (int n = 0; n < numNotes; n++)
+          {
+            int noteIndex = ldrVal;
+            Serial.println(noteIndex);
+            pentatonicMidi[noteIndex];
+            midiNoteOn(0, pentatonicMidi[noteIndex], 127);
+            delay(200);
+            midiNoteOff(0, pentatonicMidi[noteIndex], 127);
+          }
         }
       }
     }

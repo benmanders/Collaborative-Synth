@@ -14,7 +14,7 @@ WiFiClient client;
 void setup()
 {
   Serial.begin(9600);
-  while (!Serial) {}
+//  while (!Serial) {}
   setupWifiCard();
   listNetworks();
   while (!isNetworkPresent(ssid)) {}
