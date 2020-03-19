@@ -182,12 +182,20 @@ void playNotesFrom9dof()
   sensors_event_t a, m, g, temp;
   lsm.getEvent(&a, &m, &g, &temp);
   float  gyroX = constrain(m.magnetic.x, 0, 1);
+  Serial.print("magnetic x : ");
+  Serial.println(m.magnetic.x);
   int noteIndex = gyroX * 15;
-  Serial.println(noteIndex);
   pentatonicMidi[noteIndex];
   midiNoteOn(0, pentatonicMidi[noteIndex], 127);
   delay(200);
   midiNoteOff(0, pentatonicMidi[noteIndex], 127);
+  Serial.print("noteIndex : ");
+  Serial.println(noteIndex);
+  
+//  int yReading = m.magnetic.y * 1000;
+//  int tempo = constrain(yReading, 0, 1000);
+//  Serial.println(tempo);
+//  delay(tempo);
 }
 
 void setMatrixFrom9dof()
@@ -196,17 +204,22 @@ void setMatrixFrom9dof()
   sensors_event_t a, m, g, temp;
   lsm.getEvent(&a, &m, &g, &temp);
   float  gyroX = constrain(m.magnetic.x, 0, 1);
-  int reading = gyroX * sequenceLength;
-  Serial.println(reading);
+  int xReading = gyroX * sequenceLength;
+  Serial.println(xReading);
 
-    for (int i = 0; i < reading ; i++)
-    {
-      noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = true;
-    }
-  
-    for (int i = reading; i < sequenceLength ; i++)
-    {
-      noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = false;
-      //Serial.println(i);
+//  int yReading = m.magnetic.y * 1000;
+//  int tempo = constrain(yReading, 0, 1000);
+//  Serial.println(tempo);
+//  delay(tempo);
+
+  for (int i = 0; i < xReading ; i++)
+  {
+    noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = true;
   }
+
+  for (int i = xReading; i < sequenceLength ; i++)
+  {
+    noteMatrix[finalPatternBeats[i]][finalPatternNotes[i]] = false;
+  }
+
 }
