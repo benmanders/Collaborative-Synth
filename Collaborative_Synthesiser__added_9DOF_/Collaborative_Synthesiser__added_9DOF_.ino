@@ -65,7 +65,6 @@ int pentatonicMidi[numNotes] {48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72, 74, 76
 //int pentatonicMidi[numNotes] {12, 14, 16, 19, 21, 24, 26, 28, 31, 33, 36, 38, 40, 43, 45, 48}; // cmaj pentatonic - 3 octaves (low)
 //-----------------------------------------------------------------------------------------------------------------------------
 
-
 //------------------------------------------------------Drum Patch---------------------------------------------------------------
 //int finalPatternBeats[sequenceLength] = {0, 4, 8, 10, 12, 16, 2, 6, 11, 15, 16, 2, 10, 14, 16, 6, 2};
 //int finalPatternNotes[sequenceLength] = {1, 1, 1, 4, 1, 4, 9, 9, 9, 9, 9, 9, 9, 13, 13, 3, 5};
@@ -96,10 +95,11 @@ void setup()
   //midiSetChannelBank(0, VS1053_BANK_DRUMS1);
   midiSetChannelVolume(0, 127);
   midiSetInstrument(0, VS1053_GM1_FLUTE);
- // midiSetInstrument(0, VS1053_BANK_DRUMS1);
+  // midiSetInstrument(0, VS1053_BANK_DRUMS1);
   Serial.println("Started");
   int ldrVal = analogRead(A1);
   //int potentiometerVal = analogRead(A2);
+
   //setupBeats();
   //playNotes();
   //randomiseNoteMatrix();
@@ -107,93 +107,41 @@ void setup()
   //setInterleaveScale();
   //setMatrixDensity(18);
   //printMatrix();
+
   notesOff();
 
 
- // run = 0; //starts stopped
- // buttonPin = 10; //whatever pin your button is plugged into
-
- // pinMode(buttonPin, INPUT_PULLUP);
+  // run = 0; //starts stopped
+  // buttonPin = 10; //whatever pin your button is plugged into
+  // pinMode(buttonPin, INPUT_PULLUP);
 
 }
 
 void loop()
 {
 
-//
-//  if (digitalRead(buttonPin) == LOW) //funcitons based off of button pulling input pin LOW
-//  {
-//    if (run == 0)
-//    {
-//      run = 255;
-//    }
-//    else
-//    {
-//      run = 0;
-//    }
-//  }
-//
-//  if (run > 0)
-//  {
+  //
+  //  if (digitalRead(buttonPin) == LOW) //funcitons based off of button pulling input pin LOW
+  //  {
+  //    if (run == 0)
+  //    {
+  //      run = 255;
+  //    }
+  //    else
+  //    {
+  //      run = 0;
+  //    }
+  //  }
+  //
+  //  if (run > 0)
+  //  {
 
-
-    int potentiometerVal = analogRead(A2);
-    int volume = map(potentiometerVal, 0, 1023, 0, 127);
-    Serial.print("volume: ");
-    Serial.println(volume);
-    midiSetChannelVolume(0, volume);
-    //midiSetInstrument(0, VS1053_GM1_SYNTH_BASS_1);
-    int potentiometerVal2 = analogRead(A3);
-    int instrument = map(potentiometerVal2, 0, 1023, 0, 3);
-    Serial.print("Instrument: ");
-    Serial.println(instrument);
-
-
-    //    if (instrument == 1)
-    //    {
-    //      midiSetInstrument(0, VS1053_GM1_ACOUSTIC_GRAND_PIANO);
-    //      Serial.println("Piano");
-    //    }
-    //    if (instrument == 2)
-    //    {
-    //      midiSetInstrument(0, VS1053_GM1_SYNTH_BASS_1);
-    //      Serial.println("Bass");
-    //    }
-    //    if (instrument == 3)
-    //    {
-    //      midiSetInstrument(0, VS1053_GM1_FLUTE);
-    //      Serial.println("Flute");
-    //    }
-
-    lsm.read();
-    sensors_event_t a, m, g, temp;
-    lsm.getEvent(&a, &m, &g, &temp);
-
-//      Serial.print("Accel X: "); Serial.print(a.acceleration.x); Serial.print(" m/s^2");
-//      Serial.print("\tY: "); Serial.print(a.acceleration.y);     Serial.print(" m/s^2 ");
-//      Serial.print("\tZ: "); Serial.print(a.acceleration.z);     Serial.println(" m/s^2 ");
-
-    //Serial.print("Mag X: ");
-    //Serial.print(m.magnetic.x - .150); // Serial.print(" gauss");
-    //Serial.print("\t");
-    //Serial.print(m.magnetic.y  - .140);   // Serial.print(" gauss");
-    //Serial.print("\t");
-    //Serial.println(m.magnetic.z - .110);    // Serial.println(" gauss");
-
-//      Serial.print("Gyro X: "); Serial.print(g.gyro.x);   Serial.print(" dps");
-//      Serial.print("\tY: "); Serial.print(g.gyro.y);      Serial.print(" dps");
-//      Serial.print("\tZ: "); Serial.print(g.gyro.z);      Serial.println(" dps");
-
-
-
-    //playChord();
-    //readSensors();
-    //playNotes();
-    //setupBeats();
-    //setMatrixFromSensor();
-    playNotesFrom9dof();
-    //setMatrixFrom9dof();
-    //playStep();
+  volume();
+  instrument();
+  read9Dof();
+  //playNotesFrom9dof();
+  setMatrixFrom9dof();
+  playStep();
 
 
   //}
